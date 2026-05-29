@@ -4,6 +4,7 @@ from __future__ import annotations
 
 __all__ = ["dump"]
 
+import base64
 import json
 
 from rich import print_json
@@ -32,3 +33,14 @@ def display(data):
             print_json(data=data)
         case _:
             raise NotImplementedError(output_format)
+
+
+def reveal_answer(encoded: str) -> str:
+    return base64.b64decode(encoded.encode()).decode("utf-8")
+
+
+@app.async_command()
+async def show_joke():
+    print("Why did the 🐣 cross the road?")
+    input("Press Enter to see the answer...")
+    print(reveal_answer("VG8gZ2V0IHRvIHRoZSBvdGhlciBzaWRlISDwn5iK"))
